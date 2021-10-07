@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+
+<head>
+    <title> Test Streams </title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Compiled and minified CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+
+    <!-- Compiled and minified JavaScript -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+</head>
+
+<body>
+    <div class="container mt-3" style="align-items: center;">
+        <h1 style="text-align: center;"> Test streams </h1>
+        <hr>
+
+        <button class="tablink btn btn-outline-primary" onclick="openPage('Progressive', this)"
+            id=defaultOpen>Progressive</button>
+
+        <button class="tablink btn btn-outline-primary" onclick="openPage('MPEGDash', this)">MPEG Dash</button>
+
+        <button class="tablink btn btn-outline-primary" onclick="openPage('HLS', this)">HLS</button>
+
+        <button class="tablink btn btn-outline-primary"
+            onclick="openPage('SmoothStreaming', this)">SmoothStreaming</button>
+
+
+        <div id="Progressive" class="tabcontent">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>
+                            ID
+                        </th>
+                        <th>
+                            Name
+                        </th>
+                        <th>
+                            Type
+                        </th>
+                        <th>
+                            Video Codec
+                        </th>
+                        <th>
+                            Audio Codec
+                        </th>
+                        <th>
+                            URL
+                        </th>
+                        <th>
+                            Open
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for stream in streams %}
+                    <tr>
+                        <td>{{ stream.id }}</td>
+                        <td>{{ stream.name }}</td>
+                        <td>{{ stream.type }}</td>
+                        <td>{{ stream.video_codec }}</td>
+                        <td>{{ stream.audio_codec }}</td>
+                        <td><button class="btn btn-outline-primary"
+                                onclick="copyToClipboard('{{ stream.url }}')">Copy</button></td>
+                        <td>
+                            <button class="btn btn-outline-primary"
+                                onclick="playUrl('{{ stream.url }}')">Preview</button>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+        <div id="MPEGDash" class="tabcontent">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>
+                            ID
+                        </th>
+                        <th>
+                            Name
+                        </th>
+                        <th>
+                            Type
+                        </th>
+                        <th>
+                            Video Codec
+                        </th>
+                        <th>
+                            Audio Codec
+                        </th>
+                        <th>
+                            URL
+                        </th>
+                        <th>
+                            Open
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for stream in dash_streams %}
+                    <tr>
+                        <td>{{ stream.id }}</td>
+                        <td>{{ stream.name }}</td>
+                        <td>{{ stream.type }}</td>
+                        <td>{{ stream.video_codec }}</td>
+                        <td>{{ stream.audio_codec }}</td>
+                        <td><button class="btn btn-outline-primary"
+                                onclick="copyToClipboard('{{ stream.url }}')">Copy</button></td>
+                        <td>
+                            <button class="btn btn-outline-primary"
+                                onclick="playUrl('{{ stream.url }}')">Preview</button>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+        <div id="HLS" class="tabcontent">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>
+                            ID
+                        </th>
+                        <th>
+                            Name
+                        </th>
+                        <th>
+                            Type
+                        </th>
+                        <th>
+                            Video Codec
+                        </th>
+                        <th>
+                            Audio Codec
+                        </th>
+                        <th>
+                            URL
+                        </th>
+                        <th>
+                            Open
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for stream in hls_streams %}
+                    <tr>
+                        <td>{{ stream.id }}</td>
+                        <td>{{ stream.name }}</td>
+                        <td>{{ stream.type }}</td>
+                        <td>{{ stream.video_codec }}</td>
+                        <td>{{ stream.audio_codec }}</td>
+                        <td><button class="btn btn-outline-primary"
+                                onclick="copyToClipboard('{{ stream.url }}')">Copy</button></td>
+                        <td>
+                            <button class="btn btn-outline-primary"
+                                onclick="playUrl('{{ stream.url }}')">Preview</button>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+        <div id="SmoothStreaming" class="tabcontent">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>
+                            ID
+                        </th>
+                        <th>
+                            Name
+                        </th>
+                        <th>
+                            Type
+                        </th>
+                        <th>
+                            Video Codec
+                        </th>
+                        <th>
+                            Audio Codec
+                        </th>
+                        <th>
+                            URL
+                        </th>
+                        <th>
+                            Open
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for stream in ss_streams %}
+                    <tr>
+                        <td>{{ stream.id }}</td>
+                        <td>{{ stream.name }}</td>
+                        <td>{{ stream.type }}</td>
+                        <td><button class="btn btn-outline-primary"
+                                onclick="copyToClipboard('{{ stream.url }}')">Copy</button></td>
+                        <td>
+                            <button class="btn btn-outline-primary"
+                                onclick="playUrl('{{ stream.url }}')">Preview</button>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <script>
+        function playUrl(url) {
+            window.open('/player?url=' + url, '_blank').focus();
+        }
+
+        function openPage(pageName, elmnt) {
+            var i, tabcontent, tablinks;
+            tabcontent = document.getElementsByClassName("tabcontent");
+            for (i = 0; i < tabcontent.length; i++) {
+                tabcontent[i].style.display = "none";
+            }
+            tablinks = document.getElementsByClassName("tablink");
+            for (i = 0; i < tablinks.length; i++) {
+                tablinks[i].style.backgroundColor = "";
+            }
+            document.getElementById(pageName).style.display = "block";
+        }
+
+        function copyToClipboard(text) {
+            var textArea = document.createElement("textarea");
+            textArea.value = text;
+
+            // Avoid scrolling to bottom
+            textArea.style.top = "0";
+            textArea.style.left = "0";
+            textArea.style.position = "fixed";
+
+            document.body.appendChild(textArea);
+            textArea.focus();
+            textArea.select();
+            try {
+                var successful = document.execCommand('copy');
+                var msg = successful ? 'successful' : 'unsuccessful';
+                this.value = "Copied!";
+                setTimeout(function(){this.value = "Copy"}, 3000);
+                alert("Copied!");
+            } catch (err) {
+                M.toast({html: 'I am a toast!'})
+                console.error('Fallback: Oops, unable to copy', err);
+            }
+
+            document.body.removeChild(textArea);
+        }
+
+        document.getElementById("defaultOpen").click();
+    </script>
+</body>
