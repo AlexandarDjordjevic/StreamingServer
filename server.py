@@ -11,7 +11,8 @@ def index():
     id = 0
     for file in fileList :
         id += 1
-        streams.append({'id' : str(id), 'name' : file.split('.')[0], 'type' : 'mp4', 'url' : 'http://alexandar.ddns.net:8080/streams?stream={}'.format(file), 'video_codec' : 'NI', 'audio_codec' : 'NI' })
+        name, type = file.split('.')[0:2]
+        streams.append({'id' : str(id), 'name' : name, 'type' : type, 'url' : 'http://alexandar.ddns.net:8080/streams?stream={}'.format(file), 'video_codec' : 'NI', 'audio_codec' : 'NI' })
     return render_template('index.html', streams=streams)
 
 @app.route('/player', methods=['GET'])
